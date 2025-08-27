@@ -1,0 +1,7 @@
+[build]
+  publish = "."
+
+# Tắt các plugin tự động
+[[plugins]]
+  package = "@netlify/plugin-functions-core"
+  skip = true
