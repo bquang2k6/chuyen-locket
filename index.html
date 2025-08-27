@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đang chuyển hướng...</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 500px;
+            width: 90%;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, #f0f8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5)); }
+            to { filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8)); }
+        }
+
+        .message {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .countdown-container {
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .countdown {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .progress-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+        }
+
+        .progress-ring-circle {
+            stroke: rgba(255, 255, 255, 0.3);
+            stroke-width: 4;
+            fill: transparent;
+            r: 54;
+            cx: 60;
+            cy: 60;
+        }
+
+        .progress-ring-progress {
+            stroke: #fff;
+            stroke-width: 4;
+            fill: transparent;
+            r: 54;
+            cx: 60;
+            cy: 60;
+            stroke-dasharray: 339.292;
+            stroke-dashoffset: 339.292;
+            transform-origin: 60px 60px;
+            transform: rotate(-90deg);
+            animation: progressAnimation 3s linear;
+        }
+
+        @keyframes progressAnimation {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .loading-dots {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 20px;
+            margin-top: 20px;
+        }
+
+        .loading-dots div {
+            position: absolute;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: white;
+            animation: loadingDots 1.2s linear infinite;
+        }
+
+        .loading-dots div:nth-child(1) { left: 8px; animation-delay: 0s; }
+        .loading-dots div:nth-child(2) { left: 32px; animation-delay: -0.4s; }
+        .loading-dots div:nth-child(3) { left: 56px; animation-delay: -0.8s; }
+
+        @keyframes loadingDots {
+            0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+            40% { opacity: 1; transform: scale(1); }
+        }
+
+        .destination {
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .destination-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .destination-url {
+            font-size: 1.1rem;
+            font-weight: 500;
+            word-break: break-all;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 30px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .message {
+                font-size: 1rem;
+            }
+            
+            .countdown {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nhà mới đã thay đổi sang wangtech.top</h1>
+        <p class="message">Bạn sẽ được chuyển hướng tự động trong...</p>
+        
+        <div class="countdown-container">
+            <svg class="progress-ring">
+                <circle class="progress-ring-circle"></circle>
+                <circle class="progress-ring-progress"></circle>
+            </svg>
+            <div class="countdown" id="countdown">3</div>
+        </div>
+        
+        <div class="loading-dots">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        
+        <div class="destination">
+            <div class="destination-label">Điểm đến:</div>
+            <div class="destination-url" id="destination">https://locket.wangtech.top</div>
+        </div>
+    </div>
+
+    <script>
+        // Cấu hình chuyển hướng
+        const REDIRECT_URL = 'https://locket.wangtech.top'; // Thay đổi URL này
+        const REDIRECT_DELAY = 3000; // 3 giây (3000ms)
+        
+        // Cập nhật URL đích trên giao diện
+        document.getElementById('destination').textContent = REDIRECT_URL;
+        
+        // Đếm ngược
+        let timeLeft = 3;
+        const countdownElement = document.getElementById('countdown');
+        
+        const countdownTimer = setInterval(() => {
+            timeLeft--;
+            countdownElement.textContent = timeLeft;
+            
+            if (timeLeft <= 0) {
+                clearInterval(countdownTimer);
+                countdownElement.textContent = '0';
+            }
+        }, 1000);
+        
+        // Chuyển hướng sau 3 giây
+        setTimeout(() => {
+            window.location.href = REDIRECT_URL;
+        }, REDIRECT_DELAY);
+        
+        // Tùy chọn: Cho phép người dùng hủy chuyển hướng bằng phím ESC
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                clearInterval(countdownTimer);
+                clearTimeout();
+                countdownElement.textContent = 'Đã hủy';
+                document.querySelector('.message').textContent = 'Chuyển hướng đã được hủy bỏ.';
+            }
+        });
+    </script>
+</body>
+</html>
